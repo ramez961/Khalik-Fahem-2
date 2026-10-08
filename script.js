@@ -66,6 +66,46 @@ if (testimonialCarousel) {
     const mobileLayout = window.matchMedia('(max-width: 700px)');
     let index = 0;
     let pointerStartX = null;
+    let autoplayTimer = null;
+    let autoplayPaused = false;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const autoplayDelay = 7000;
+
+    const stopAutoplay = () => {
+      if (autoplayTimer !== null) {
+        window.clearInterval(autoplayTimer);
+        autoplayTimer = null;
+      }
+    };
+
+    const startAutoplay = () => {
+      const visibleCount = mobileLayout.matches ? 1 : 3;
+      if (autoplayTimer !== null || autoplayPaused || reducedMotion.matches || document.hidden || cards.length <= visibleCount) {
+        return;
+      }
+
+      autoplayTimer = window.setInterval(() => {
+        const currentVisibleCount = mobileLayout.matches ? 1 : 3;
+        const maxIndex = Math.max(0, cards.length - currentVisibleCount);
+        index = index >= maxIndex ? 0 : index + 1;
+        updateCarousel();
+      }, autoplayDelay);
+    };
+
+    const pauseAutoplay = () => {
+      autoplayPaused = true;
+      stopAutoplay();
+    };
+
+    const resumeAutoplay = () => {
+      autoplayPaused = false;
+      startAutoplay();
+    };
+
+    const restartAutoplay = () => {
+      stopAutoplay();
+      startAutoplay();
+    };
 
     testimonialCarousel.tabIndex = 0;
 
@@ -95,12 +135,44 @@ if (testimonialCarousel) {
     previousButton.addEventListener('click', () => {
       index -= 1;
       updateCarousel();
+      restartAutoplay();
     });
 
     nextButton.addEventListener('click', () => {
       index += 1;
       updateCarousel();
+      restartAutoplay();
     });
+
+    cards.forEach((card) => {
+      card.addEventListener('mouseenter', pauseAutoplay);
+      card.addEventListener('mouseleave', resumeAutoplay);
+    });
+
+    testimonialCarousel.addEventListener('focusin', pauseAutoplay);
+    testimonialCarousel.addEventListener('focusout', (event) => {
+      if (!testimonialCarousel.contains(event.relatedTarget)) {
+        resumeAutoplay();
+      }
+    });
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        stopAutoplay();
+      } else {
+        startAutoplay();
+      }
+    });
+
+    if (reducedMotion.addEventListener) {
+      reducedMotion.addEventListener('change', () => {
+        if (reducedMotion.matches) {
+          stopAutoplay();
+        } else {
+          startAutoplay();
+        }
+      });
+    }
 
     testimonialCarousel.addEventListener('keydown', (event) => {
       if (event.key === 'ArrowLeft') {
@@ -149,5 +221,6 @@ if (testimonialCarousel) {
     }
 
     updateCarousel();
+    startAutoplay();
   }
 }
