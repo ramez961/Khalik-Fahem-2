@@ -73,6 +73,11 @@ if (testimonialCarousel) {
     let hoverPaused = false;
     let focusPaused = false;
     let dragging = false;
+    let manualNavigating = false;
+    let navigationToken = 0;
+    let navigationHoldUntil = 0;
+    let pointerStartX = null;
+    let dragStartOffset = 0;
 
     const firstGroup = document.createElement('div');
     firstGroup.className = 'cards-group';
@@ -116,7 +121,7 @@ if (testimonialCarousel) {
       applyOffset();
     };
 
-    const canMove = () => !hoverPaused && !focusPaused && !dragging && !document.hidden && !reducedMotion.matches;
+    const canMove = () => !hoverPaused && !focusPaused && !dragging && !manualNavigating && performance.now() >= navigationHoldUntil && !document.hidden && !reducedMotion.matches;
 
     const animate = (timestamp) => {
       if (lastFrame === 0) {
@@ -154,16 +159,54 @@ if (testimonialCarousel) {
       }
     });
 
+    const navigateByCard = (direction) => {
+      if (manualNavigating || pointerStartX !== null || !cardStep) {
+        return;
+      }
+
+      const startOffset = offset;
+      const distance = cardStep * direction;
+      navigationHoldUntil = 0;
+
+      if (reducedMotion.matches) {
+        offset = startOffset + distance;
+        applyOffset();
+        navigationHoldUntil = performance.now() + 1800;
+        return;
+      }
+
+      manualNavigating = true;
+      const token = ++navigationToken;
+      const startTime = performance.now();
+      const duration = 420;
+      const step = (now) => {
+        if (token !== navigationToken) {
+          return;
+        }
+
+        const progress = Math.min((now - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        offset = startOffset + distance * eased;
+        applyOffset();
+
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+          return;
+        }
+
+        offset = startOffset + distance;
+        applyOffset();
+        manualNavigating = false;
+        navigationHoldUntil = performance.now() + 1800;
+      };
+
+      window.requestAnimationFrame(step);
+    };
+
     previousButton.disabled = false;
     nextButton.disabled = false;
-    previousButton.addEventListener('click', () => {
-      offset -= cardStep;
-      applyOffset();
-    });
-    nextButton.addEventListener('click', () => {
-      offset += cardStep;
-      applyOffset();
-    });
+    previousButton.addEventListener('click', () => navigateByCard(-1));
+    nextButton.addEventListener('click', () => navigateByCard(1));
 
     testimonialCarousel.addEventListener('keydown', (event) => {
       if (event.key === 'ArrowLeft') {
@@ -175,14 +218,14 @@ if (testimonialCarousel) {
       }
     });
 
-    let pointerStartX = null;
-    let dragStartOffset = 0;
-
     viewport.addEventListener('pointerdown', (event) => {
       if (!event.isPrimary || event.target.closest('button') || (event.pointerType === 'mouse' && event.button !== 0)) {
         return;
       }
 
+      navigationToken += 1;
+      manualNavigating = false;
+      navigationHoldUntil = 0;
       pointerStartX = event.clientX;
       dragStartOffset = offset;
       dragging = true;
