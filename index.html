@@ -152,6 +152,8 @@
     .video-play-button[hidden] { display: none; }
     .youtube-player { position: absolute; inset: 0; z-index: 1; display: block; width: 100%; height: 100%; border: 0; background: #000; }
 
+      .reviews { --black: var(--ink); --white: #fff; }
+    .reviews{padding:78px 0 86px;background:var(--paper)}.section-head{text-align:center;max-width:700px;margin:0 auto 34px}.kicker{font-size:12px;font-weight:700;color:var(--black);letter-spacing:.09em}.section-head h2{margin:9px 0;font-size:clamp(28px,4vw,43px);line-height:1.25;font-weight:700;letter-spacing:-.03em}.section-head p{margin:0;color:var(--muted);line-height:1.8}.section-head .section-description{max-width:900px;margin:0 auto 28px;color:var(--ink);font-size:15px;line-height:1.8}.cards-viewport{overflow:hidden;direction:rtl;touch-action:pan-y}.cards{display:flex;width:100%;gap:18px;align-items:stretch;transition:transform .35s ease}.card{position:relative;display:flex;flex:0 0 calc((100% - 36px)/3);min-width:0;min-height:230px;flex-direction:column;align-items:flex-start;padding:26px 24px 24px;background:var(--white);color:var(--black);overflow:hidden;border:1px solid var(--line);border-radius:16px;box-shadow:0 12px 30px #001c1510}.card:after{content:"";position:absolute;top:-24px;inset-inline-end:-20px;width:105px;height:134px;background:url("assets/icon%2004.svg") center/contain no-repeat;opacity:.1;pointer-events:none}.carousel-controls{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:24px}.carousel-arrow{display:grid;width:42px;height:42px;place-items:center;border:1px solid var(--line);border-radius:50%;background:var(--white);color:var(--black);cursor:pointer;transition:background .18s,color .18s,border-color .18s}.carousel-arrow:hover:not(:disabled){background:var(--black);border-color:var(--black);color:var(--white)}.carousel-arrow:focus-visible{outline:3px solid var(--lime);outline-offset:3px}.testimonial-carousel:focus-visible{outline:3px solid var(--lime);outline-offset:5px}.carousel-arrow:disabled{opacity:.4;cursor:not-allowed}.carousel-arrow svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.carousel-count{min-width:90px;color:var(--muted);font-size:13px;text-align:center}.quote-badge{position:relative;z-index:1;display:grid;width:48px;height:48px;place-items:center;margin-bottom:8px;border-radius:50%;background:var(--black)}.quote-mark{display:block;width:25px;height:25px}.card blockquote{position:relative;z-index:1;flex:1;margin:10px 0 22px;color:var(--black);font-size:16px;line-height:1.8}.client{position:relative;z-index:1;width:100%;border-top:1px solid #001c1530;padding-top:12px;color:var(--black);font-size:13px}.client strong{color:var(--black);font-weight:700}
   </style>
 </head>
 <body><header class="header">
@@ -221,6 +223,76 @@
       </div>
     </section>
 
+    <section class="reviews" id="feedback">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">انتصارات الأعضاء</span>
+          <h2>بدأوا من مكانك، وما مشوها لحالهم</h2>
+          <p class="section-description">وظائف وعروض وترقيات، كتبها أصحابها بأنفسهم داخل المجتمع.</p>
+        </div>
+        <div class="testimonial-carousel" role="region" aria-roledescription="carousel" aria-label="انتصارات الأعضاء">
+          <div class="cards-viewport">
+            <div class="cards">
+              <article class="card" role="group" aria-roledescription="شريحة" aria-label="١ من ١٠">
+                <span class="quote-badge"><img class="quote-mark" src="https://ramez961.github.io/khalik-fahem/assets/quote-mark.svg" alt="" aria-hidden="true" loading="lazy" decoding="async"></span>
+                <blockquote>[أضف اقتباسًا قصيرًا من عميل عن تجربته.]</blockquote>
+                <div class="client"><strong>[اسم العميل]</strong> · [المسمى أو النتيجة]</div>
+              </article>
+              <article class="card" role="group" aria-roledescription="شريحة" aria-label="٢ من ١٠">
+                <span class="quote-badge"><img class="quote-mark" src="https://ramez961.github.io/khalik-fahem/assets/quote-mark.svg" alt="" aria-hidden="true" loading="lazy" decoding="async"></span>
+                <blockquote>[أضف اقتباسًا قصيرًا من عميل عن تجربته.]</blockquote>
+                <div class="client"><strong>[اسم العميل]</strong> · [المسمى أو النتيجة]</div>
+              </article>
+              <article class="card" role="group" aria-roledescription="شريحة" aria-label="٣ من ١٠">
+                <span class="quote-badge"><img class="quote-mark" src="https://ramez961.github.io/khalik-fahem/assets/quote-mark.svg" alt="" aria-hidden="true" loading="lazy" decoding="async"></span>
+                <blockquote>[أضف اقتباسًا قصيرًا من عميل عن تجربته.]</blockquote>
+                <div class="client"><strong>[اسم العميل]</strong> · [المسمى أو النتيجة]</div>
+              </article>
+              <article class="card" role="group" aria-roledescription="شريحة" aria-label="٤ من ١٠">
+                <span class="quote-badge"><img class="quote-mark" src="https://ramez961.github.io/khalik-fahem/assets/quote-mark.svg" alt="" aria-hidden="true" loading="lazy" decoding="async"></span>
+                <blockquote>[أضف اقتباسًا قصيرًا من عميل عن تجربته.]</blockquote>
+                <div class="client"><strong>[اسم العميل]</strong> · [المسمى أو النتيجة]</div>
+              </article>
+              <article class="card" role="group" aria-roledescription="شريحة" aria-label="٥ من ١٠">
+                <span class="quote-badge"><img class="quote-mark" src="https://ramez961.github.io/khalik-fahem/assets/quote-mark.svg" alt="" aria-hidden="true" loading="lazy" decoding="async"></span>
+                <blockquote>[أضف اقتباسًا قصيرًا من عميل عن تجربته.]</blockquote>
+                <div class="client"><strong>[اسم العميل]</strong> · [المسمى أو النتيجة]</div>
+              </article>
+              <article class="card" role="group" aria-roledescription="شريحة" aria-label="٦ من ١٠">
+                <span class="quote-badge"><img class="quote-mark" src="https://ramez961.github.io/khalik-fahem/assets/quote-mark.svg" alt="" aria-hidden="true" loading="lazy" decoding="async"></span>
+                <blockquote>[أضف اقتباسًا قصيرًا من عميل عن تجربته.]</blockquote>
+                <div class="client"><strong>[اسم العميل]</strong> · [المسمى أو النتيجة]</div>
+              </article>
+              <article class="card" role="group" aria-roledescription="شريحة" aria-label="٧ من ١٠">
+                <span class="quote-badge"><img class="quote-mark" src="https://ramez961.github.io/khalik-fahem/assets/quote-mark.svg" alt="" aria-hidden="true" loading="lazy" decoding="async"></span>
+                <blockquote>[أضف اقتباسًا قصيرًا من عميل عن تجربته.]</blockquote>
+                <div class="client"><strong>[اسم العميل]</strong> · [المسمى أو النتيجة]</div>
+              </article>
+              <article class="card" role="group" aria-roledescription="شريحة" aria-label="٨ من ١٠">
+                <span class="quote-badge"><img class="quote-mark" src="https://ramez961.github.io/khalik-fahem/assets/quote-mark.svg" alt="" aria-hidden="true" loading="lazy" decoding="async"></span>
+                <blockquote>[أضف اقتباسًا قصيرًا من عميل عن تجربته.]</blockquote>
+                <div class="client"><strong>[اسم العميل]</strong> · [المسمى أو النتيجة]</div>
+              </article>
+              <article class="card" role="group" aria-roledescription="شريحة" aria-label="٩ من ١٠">
+                <span class="quote-badge"><img class="quote-mark" src="https://ramez961.github.io/khalik-fahem/assets/quote-mark.svg" alt="" aria-hidden="true" loading="lazy" decoding="async"></span>
+                <blockquote>[أضف اقتباسًا قصيرًا من عميل عن تجربته.]</blockquote>
+                <div class="client"><strong>[اسم العميل]</strong> · [المسمى أو النتيجة]</div>
+              </article>
+              <article class="card" role="group" aria-roledescription="شريحة" aria-label="١٠ من ١٠">
+                <span class="quote-badge"><img class="quote-mark" src="https://ramez961.github.io/khalik-fahem/assets/quote-mark.svg" alt="" aria-hidden="true" loading="lazy" decoding="async"></span>
+                <blockquote>[أضف اقتباسًا قصيرًا من عميل عن تجربته.]</blockquote>
+                <div class="client"><strong>[اسم العميل]</strong> · [المسمى أو النتيجة]</div>
+              </article>
+            </div>
+          </div>
+          <div class="carousel-controls">
+            <button class="carousel-arrow" type="button" data-carousel-prev aria-label="عرض الاقتباس السابق" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 5 7 7-7 7"/></svg></button>
+            <span class="carousel-count" aria-live="polite">١–٣ من ١٠</span>
+            <button class="carousel-arrow" type="button" data-carousel-next aria-label="عرض الاقتباسات التالية"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 5-7 7 7 7"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </section>
     <section class="offer" id="offer">
       <div class="wrap offer-grid">
         <div class="offer-copy">
