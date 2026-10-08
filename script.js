@@ -72,6 +72,7 @@ if (testimonialCarousel) {
     let lastFrame = 0;
     let hoverPaused = false;
     let focusPaused = false;
+    let dragging = false;
 
     const firstGroup = document.createElement('div');
     firstGroup.className = 'cards-group';
@@ -115,7 +116,7 @@ if (testimonialCarousel) {
       applyOffset();
     };
 
-    const canMove = () => !hoverPaused && !focusPaused && !document.hidden && !reducedMotion.matches;
+    const canMove = () => !hoverPaused && !focusPaused && !dragging && !document.hidden && !reducedMotion.matches;
 
     const animate = (timestamp) => {
       if (lastFrame === 0) {
@@ -136,12 +137,15 @@ if (testimonialCarousel) {
       window.requestAnimationFrame(animate);
     };
 
-    [firstGroup, secondGroup].forEach((group) => {
-      group.querySelectorAll('.card').forEach((card) => {
-        card.addEventListener('mouseenter', () => { hoverPaused = true; });
-        card.addEventListener('mouseleave', () => { hoverPaused = false; });
+    const hoverCapable = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (hoverCapable) {
+      [firstGroup, secondGroup].forEach((group) => {
+        group.querySelectorAll('.card').forEach((card) => {
+          card.addEventListener('mouseenter', () => { hoverPaused = true; });
+          card.addEventListener('mouseleave', () => { hoverPaused = false; });
+        });
       });
-    });
+    }
 
     testimonialCarousel.addEventListener('focusin', () => { focusPaused = true; });
     testimonialCarousel.addEventListener('focusout', (event) => {
@@ -172,22 +176,46 @@ if (testimonialCarousel) {
     });
 
     let pointerStartX = null;
+    let dragStartOffset = 0;
+
     viewport.addEventListener('pointerdown', (event) => {
-      if (event.isPrimary && !event.target.closest('button')) {
-        pointerStartX = event.clientX;
+      if (!event.isPrimary || event.target.closest('button') || (event.pointerType === 'mouse' && event.button !== 0)) {
+        return;
+      }
+
+      pointerStartX = event.clientX;
+      dragStartOffset = offset;
+      dragging = true;
+      viewport.classList.add('is-dragging');
+      if (viewport.setPointerCapture) {
+        viewport.setPointerCapture(event.pointerId);
       }
     });
-    viewport.addEventListener('pointerup', (event) => {
+
+    viewport.addEventListener('pointermove', (event) => {
       if (pointerStartX === null) {
         return;
       }
-      const delta = event.clientX - pointerStartX;
-      pointerStartX = null;
-      if (Math.abs(delta) > 40) {
-        (delta < 0 ? nextButton : previousButton).click();
-      }
+
+      offset = dragStartOffset - (event.clientX - pointerStartX);
+      applyOffset();
     });
-    viewport.addEventListener('pointercancel', () => { pointerStartX = null; });
+
+    const finishDrag = (event) => {
+      if (pointerStartX === null) {
+        return;
+      }
+
+      pointerStartX = null;
+      dragging = false;
+      viewport.classList.remove('is-dragging');
+      if (event && viewport.hasPointerCapture && viewport.hasPointerCapture(event.pointerId)) {
+        viewport.releasePointerCapture(event.pointerId);
+      }
+    };
+
+    viewport.addEventListener('pointerup', finishDrag);
+    viewport.addEventListener('pointercancel', finishDrag);
 
     if (mobileLayout.addEventListener) {
       mobileLayout.addEventListener('change', measure);
