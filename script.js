@@ -62,117 +62,104 @@ if (testimonialCarousel) {
   const cards = track ? Array.from(track.children) : [];
   const requiredElements = [viewport, track, previousButton, nextButton, count];
 
-  if (requiredElements.every(Boolean) && cards.length > 0) {
+  if (requiredElements.every(Boolean) && cards.length > 1) {
     const mobileLayout = window.matchMedia('(max-width: 700px)');
-    let index = 0;
-    let pointerStartX = null;
-    let autoplayTimer = null;
-    let autoplayPaused = false;
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const autoplayDelay = 12000;
+    const speed = 18;
+    let offset = 0;
+    let loopWidth = 0;
+    let cardStep = 0;
+    let lastFrame = 0;
+    let hoverPaused = false;
+    let focusPaused = false;
 
-    const stopAutoplay = () => {
-      if (autoplayTimer !== null) {
-        window.clearInterval(autoplayTimer);
-        autoplayTimer = null;
-      }
-    };
+    const firstGroup = document.createElement('div');
+    firstGroup.className = 'cards-group';
+    firstGroup.setAttribute('role', 'list');
+    cards.forEach((card) => {
+      card.setAttribute('role', 'listitem');
+      firstGroup.appendChild(card);
+    });
 
-    const startAutoplay = () => {
-      const visibleCount = mobileLayout.matches ? 1 : 3;
-      if (autoplayTimer !== null || autoplayPaused || reducedMotion.matches || document.hidden || cards.length <= visibleCount) {
+    const secondGroup = firstGroup.cloneNode(true);
+    secondGroup.setAttribute('aria-hidden', 'true');
+    secondGroup.inert = true;
+    track.replaceChildren(firstGroup, secondGroup);
+
+    const visibleCount = () => mobileLayout.matches ? 1 : 3;
+
+    const updateCount = () => {
+      if (!cardStep) {
         return;
       }
-
-      autoplayTimer = window.setInterval(() => {
-        const currentVisibleCount = mobileLayout.matches ? 1 : 3;
-        const maxIndex = Math.max(0, cards.length - currentVisibleCount);
-        index = index >= maxIndex ? 0 : index + 1;
-        updateCarousel();
-      }, autoplayDelay);
+      const first = Math.floor(offset / cardStep) % cards.length;
+      const last = (first + visibleCount() - 1) % cards.length;
+      count.textContent = `${(first + 1).toLocaleString('ar')}–${(last + 1).toLocaleString('ar')} من ${cards.length.toLocaleString('ar')}`;
     };
 
-    const pauseAutoplay = () => {
-      autoplayPaused = true;
-      stopAutoplay();
+    const applyOffset = () => {
+      if (!loopWidth) {
+        return;
+      }
+      offset = ((offset % loopWidth) + loopWidth) % loopWidth;
+      track.style.transform = `translate3d(${-offset}px, 0, 0)`;
+      updateCount();
     };
 
-    const resumeAutoplay = () => {
-      autoplayPaused = false;
-      startAutoplay();
+    const measure = () => {
+      const phase = loopWidth ? offset / loopWidth : 0;
+      loopWidth = firstGroup.getBoundingClientRect().width;
+      const gap = Number.parseFloat(getComputedStyle(firstGroup).columnGap) || 0;
+      cardStep = cards[0].getBoundingClientRect().width + gap;
+      offset = phase * loopWidth;
+      applyOffset();
     };
 
-    const restartAutoplay = () => {
-      stopAutoplay();
-      startAutoplay();
+    const canMove = () => !hoverPaused && !focusPaused && !document.hidden && !reducedMotion.matches;
+
+    const animate = (timestamp) => {
+      if (lastFrame === 0) {
+        lastFrame = timestamp;
+      }
+      const elapsed = Math.min(timestamp - lastFrame, 100);
+      lastFrame = timestamp;
+
+      if (canMove() && loopWidth > 0) {
+        offset += speed * elapsed / 1000;
+        if (offset >= loopWidth) {
+          offset -= loopWidth;
+        }
+        track.style.transform = `translate3d(${-offset}px, 0, 0)`;
+        updateCount();
+      }
+
+      window.requestAnimationFrame(animate);
     };
 
-    testimonialCarousel.tabIndex = 0;
-
-    const updateCarousel = () => {
-      const visibleCount = mobileLayout.matches ? 1 : 3;
-      const maxIndex = Math.max(0, cards.length - visibleCount);
-      index = Math.max(0, Math.min(index, maxIndex));
-
-      const gap = Number.parseFloat(getComputedStyle(track).columnGap) || 0;
-      const cardWidth = cards[0].getBoundingClientRect().width;
-      track.style.transform = `translateX(${index * (cardWidth + gap)}px)`;
-
-      cards.forEach((card, cardIndex) => {
-        const isVisible = cardIndex >= index && cardIndex < index + visibleCount;
-        card.inert = !isVisible;
-        card.setAttribute('aria-hidden', String(!isVisible));
+    [firstGroup, secondGroup].forEach((group) => {
+      group.querySelectorAll('.card').forEach((card) => {
+        card.addEventListener('mouseenter', () => { hoverPaused = true; });
+        card.addEventListener('mouseleave', () => { hoverPaused = false; });
       });
-
-      previousButton.disabled = index === 0;
-      nextButton.disabled = index === maxIndex;
-
-      const first = cards.length ? index + 1 : 0;
-      const last = Math.min(index + visibleCount, cards.length);
-      count.textContent = `${first.toLocaleString('ar')}–${last.toLocaleString('ar')} من ${cards.length.toLocaleString('ar')}`;
-    };
-
-    previousButton.addEventListener('click', () => {
-      index -= 1;
-      updateCarousel();
-      restartAutoplay();
     });
 
-    nextButton.addEventListener('click', () => {
-      index += 1;
-      updateCarousel();
-      restartAutoplay();
-    });
-
-    cards.forEach((card) => {
-      card.addEventListener('mouseenter', pauseAutoplay);
-      card.addEventListener('mouseleave', resumeAutoplay);
-    });
-
-    testimonialCarousel.addEventListener('focusin', pauseAutoplay);
+    testimonialCarousel.addEventListener('focusin', () => { focusPaused = true; });
     testimonialCarousel.addEventListener('focusout', (event) => {
       if (!testimonialCarousel.contains(event.relatedTarget)) {
-        resumeAutoplay();
+        focusPaused = false;
       }
     });
 
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) {
-        stopAutoplay();
-      } else {
-        startAutoplay();
-      }
+    previousButton.disabled = false;
+    nextButton.disabled = false;
+    previousButton.addEventListener('click', () => {
+      offset -= cardStep;
+      applyOffset();
     });
-
-    if (reducedMotion.addEventListener) {
-      reducedMotion.addEventListener('change', () => {
-        if (reducedMotion.matches) {
-          stopAutoplay();
-        } else {
-          startAutoplay();
-        }
-      });
-    }
+    nextButton.addEventListener('click', () => {
+      offset += cardStep;
+      applyOffset();
+    });
 
     testimonialCarousel.addEventListener('keydown', (event) => {
       if (event.key === 'ArrowLeft') {
@@ -184,43 +171,36 @@ if (testimonialCarousel) {
       }
     });
 
+    let pointerStartX = null;
     viewport.addEventListener('pointerdown', (event) => {
-      if (!event.isPrimary || event.target.closest('button')) {
-        return;
+      if (event.isPrimary && !event.target.closest('button')) {
+        pointerStartX = event.clientX;
       }
-      pointerStartX = event.clientX;
     });
-
     viewport.addEventListener('pointerup', (event) => {
       if (pointerStartX === null) {
         return;
       }
-
       const delta = event.clientX - pointerStartX;
       pointerStartX = null;
-
       if (Math.abs(delta) > 40) {
         (delta < 0 ? nextButton : previousButton).click();
       }
     });
-
-    viewport.addEventListener('pointercancel', () => {
-      pointerStartX = null;
-    });
+    viewport.addEventListener('pointercancel', () => { pointerStartX = null; });
 
     if (mobileLayout.addEventListener) {
-      mobileLayout.addEventListener('change', updateCarousel);
+      mobileLayout.addEventListener('change', measure);
     } else {
-      mobileLayout.addListener(updateCarousel);
+      mobileLayout.addListener(measure);
     }
-
     if ('ResizeObserver' in window) {
-      new ResizeObserver(updateCarousel).observe(viewport);
+      new ResizeObserver(measure).observe(viewport);
     } else {
-      window.addEventListener('resize', updateCarousel, { passive: true });
+      window.addEventListener('resize', measure, { passive: true });
     }
 
-    updateCarousel();
-    startAutoplay();
+    measure();
+    window.requestAnimationFrame(animate);
   }
 }
