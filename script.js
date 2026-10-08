@@ -69,7 +69,7 @@ if (testimonialCarousel) {
     let autoplayTimer = null;
     let autoplayPaused = false;
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const autoplayDelay = 7000;
+    const autoplayDelay = 12000;
 
     const stopAutoplay = () => {
       if (autoplayTimer !== null) {
