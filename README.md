@@ -1,9 +1,9 @@
 # Khalik Fahem 2
 
-A refreshed Arabic landing page for Khalik Fahem. The homepage includes a click-to-load YouTube player with full player controls and responsive layout.
+A refreshed Arabic landing page for Khalik Fahem, based on the approved design concept.
 
-- Open `index.html` for the landing page.
-- `script.js` loads the player only after a visitor presses play.
+- `index.html` contains the responsive landing page and interactive member story carousel.
+- `script.js` loads the YouTube player on demand with the original player controls.
 - [Design screenshot](design-preview.jpg)
 
-Before publishing, replace the sample stage and pricing copy, add approved member testimonials, provide the real signup URL, and add the final privacy and terms links. The video cover and decorative brand assets currently load from the original public site.
+Before launch, replace the sample stage and pricing copy, add approved member testimonials, provide the real signup URL, and add final privacy and terms links. The YouTube player can expose YouTube's standard controls and links. The video cover and decorative brand assets currently load from the original public site.
