@@ -41,10 +41,7 @@ if (videoContainer && videoPlayButton) {
     player.referrerPolicy = 'strict-origin-when-cross-origin';
     player.loading = 'eager';
     videoContainer.replaceWith(player);
-    const popoutMask = document.createElement('span');
-    popoutMask.className = 'drive-popout-mask';
-    popoutMask.setAttribute('aria-hidden', 'true');
-    player.after(popoutMask);
+
     videoPlayButton.hidden = true;
   });
 }
