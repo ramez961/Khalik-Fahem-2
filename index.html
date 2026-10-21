@@ -36,7 +36,7 @@
     .header { background: #fff; border-bottom: 1px solid var(--line); }
     .nav { min-height: 82px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
     .brand { display: flex; align-items: center; gap: 12px; font-size: 19px; font-weight: 800; white-space: nowrap; }
-    .brand img { width: 48px; height: 48px; object-fit: contain; }
+    .brand-mark { display: grid; width: 48px; height: 48px; place-items: center; border-radius: 14px 14px 14px 3px; background: var(--lime); color: var(--ink); font-family: 'IBM Plex Sans Arabic', var(--font); font-size: 23px; font-weight: 800; line-height: 1; }
     .nav-links { display: flex; align-items: center; gap: 30px; color: #4b4d45; font-size: 14px; font-weight: 600; }
     .nav-links a:hover { color: #536416; }
     .nav-cta, .button { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 0 22px; border: 1px solid var(--ink); border-radius: 8px; background: var(--ink); color: #fff; font: 700 14px var(--font); transition: transform .18s ease, background .18s ease; }
@@ -87,15 +87,15 @@
     .proof-mark { display: flex; gap: 8px; direction: ltr; }
     .proof-mark i { display: block; width: 10px; height: 34px; border-radius: 99px; background: rgba(0,0,0,.13); transform: rotate(24deg); }
     .offer { padding: 82px 0; background: var(--ink); color: #fff; }
-    .offer-grid { display: grid; grid-template-columns: 1fr .7fr; align-items: center; gap: 60px; }
-    .offer-copy h2 { max-width: 570px; margin: 13px 0 14px; font-size: clamp(34px,4.6vw,50px); }
-    .offer-copy p { max-width: 510px; margin: 0; color: #d1d1c9; font-size: 15px; line-height: 1.9; }
-    .offer-points { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 25px; color: #e8e8e1; font-size: 12px; }
+    .offer-grid { display: grid; grid-template-columns: minmax(0, 720px); justify-content: center; gap: 30px; text-align: center; }
+    .offer-copy h2 { max-width: 680px; margin: 13px auto 14px; font-size: clamp(34px,4.6vw,50px); }
+    .offer-copy p { max-width: 590px; margin: 0 auto; color: #d1d1c9; font-size: 15px; line-height: 1.9; }
+    .offer-points { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 18px; margin-top: 25px; color: #e8e8e1; font-size: 12px; }
     .offer-points span::before { content: '✓'; margin-inline-end: 7px; color: var(--lime); font-weight: 800; }
-    .price-card { padding: 29px; border-radius: 18px; background: #fff; color: var(--ink); box-shadow: 0 20px 70px rgba(0,0,0,.25); }
+    .price-card { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 18px; width: min(100%, 560px); margin: 0 auto; padding: 20px 22px; border-radius: 16px; background: #fff; color: var(--ink); box-shadow: 0 20px 70px rgba(0,0,0,.25); text-align: start; }
     .price-card .trial { display: inline-block; padding: 6px 10px; border-radius: 999px; background: #eef4cc; color: #39470b; font-size: 11px; font-weight: 800; }
     .price-card .button { width: 100%; min-height: 54px; background: var(--lime); color: var(--ink); border-color: var(--lime); }
-    .price-card .trial + .button { margin-top: 24px; }
+    .price-card .trial + .button { margin-top: 0; }
     .price-card .button:hover { background: #c3dd49; }
     .footer { display: flex; justify-content: space-between; gap: 18px; padding: 23px 0; color: #6c6e65; font-size: 11px; }
     .footer-links { display: flex; gap: 18px; }
@@ -111,7 +111,7 @@
       .wrap { width: min(100% - 32px, 540px); }
       .nav { min-height: 70px; }
       .brand { font-size: 16px; }
-      .brand img { width: 42px; height: 42px; }
+      .brand-mark { width: 42px; height: 42px; font-size: 21px; }
       .nav-links { display: none; }
       .nav-cta { min-height: 42px; padding-inline: 15px; font-size: 12px; }
       .hero { padding: 45px 0 48px; }
@@ -138,7 +138,7 @@
       .offer-copy { text-align: center; }
       .offer-copy p { margin-inline: auto; }
       .offer-points { justify-content: center; }
-      .price-card { max-width: 430px; width: 100%; margin-inline: auto; }
+      .price-card { grid-template-columns: 1fr; max-width: 430px; width: 100%; margin-inline: auto; text-align: center; }
       .footer { flex-direction: column; align-items: center; text-align: center; }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -172,6 +172,7 @@
 .carousel-toggle { min-height: 42px; padding: 0 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--white); color: var(--ink); cursor: pointer; font: 700 12px var(--font); }
 .carousel-toggle:hover { border-color: var(--ink); }
 .carousel-toggle:focus-visible { outline: 3px solid var(--lime); outline-offset: 3px; }
+.quote-mark { width: auto; height: auto; color: var(--lime); font-family: Georgia, serif; font-size: 32px; font-weight: 700; line-height: 1; }
 .client { display: flex; align-items: center; gap: 12px; }
 .client-photo, .client-photo-fallback { flex: 0 0 48px; width: 48px; height: 48px; border: 2px solid #fff; border-radius: 50%; box-shadow: 0 2px 8px rgba(0, 28, 21, .14); }
 .client-photo { display: block; object-fit: cover; object-position: center 30%; }
@@ -184,13 +185,9 @@
 <body><header class="header">
     <div class="wrap nav">
       <a class="brand" href="#top" aria-label="خلك فاهم">
-        <img src="https://ramez961.github.io/khalik-fahem/assets/khalik-fahem-mark.svg" alt="">
+        <span class="brand-mark" aria-hidden="true">خ</span>
         <span>خلك فاهم</span>
       </a>
-      <nav class="nav-links" aria-label="التنقل الرئيسي">
-        <a href="#stages">رحلتك</a>
-        <a href="#offer">العضوية</a>
-      </nav>
       <a class="nav-cta" href="#offer">ابدأ رحلتك <span aria-hidden="true">←</span></a>
     </div>
   </header>
@@ -248,52 +245,52 @@
           <div class="cards-viewport">
             <div class="cards">
               <article class="card" role="group" aria-roledescription="شريحة" aria-label="١ من ١٠">
-                <span class="quote-badge"><img class="quote-mark" src="https://ramez961.github.io/khalik-fahem/assets/quote-mark.svg" alt="" aria-hidden="true" loading="lazy" decoding="async"></span>
+                <span class="quote-badge"><span class="quote-mark" aria-hidden="true">“</span></span>
                 <blockquote>قدّمت استقالتي، ووقّعت عقدي على وظيفة تمثّلني وتمثّل طموحاتي.</blockquote>
                 <div class="client"><img class="client-photo" src="assets/testimonials/01-abdullah.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><div class="client-details"><strong>Abdullah Alghamdi</strong><span class="client-result">وظيفة جديدة · عرض أقوى في الأمن السيبراني</span></div></div>
               </article>
               <article class="card" role="group" aria-roledescription="شريحة" aria-label="٢ من ١٠">
-                <span class="quote-badge"><img class="quote-mark" src="https://ramez961.github.io/khalik-fahem/assets/quote-mark.svg" alt="" aria-hidden="true" loading="lazy" decoding="async"></span>
+                <span class="quote-badge"><span class="quote-mark" aria-hidden="true">“</span></span>
                 <blockquote>وصلني عرض وظيفي National Customs Manager في إحدى أكبر الشركات اللوجستية على مستوى العالم.</blockquote>
                 <div class="client"><img class="client-photo" src="assets/testimonials/02-saeed.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><div class="client-details"><strong>Saeed Alhedri</strong><span class="client-result">National Customs Manager · قطاع اللوجستيات</span></div></div>
               </article>
               <article class="card" role="group" aria-roledescription="شريحة" aria-label="٣ من ١٠">
-                <span class="quote-badge"><img class="quote-mark" src="https://ramez961.github.io/khalik-fahem/assets/quote-mark.svg" alt="" aria-hidden="true" loading="lazy" decoding="async"></span>
+                <span class="quote-badge"><span class="quote-mark" aria-hidden="true">“</span></span>
                 <blockquote>جاني عرض للعمل كمستشار مع شركة تشغيل موانئ على مستوى الخليج.</blockquote>
                 <div class="client"><img class="client-photo" src="assets/testimonials/03-mosaed.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><div class="client-details"><strong>Mosaed Alzahrani</strong><span class="client-result">فرصة استشارية بحرية · فرصة إدارية من نيوم</span></div></div>
               </article>
               <article class="card" role="group" aria-roledescription="شريحة" aria-label="٤ من ١٠">
-                <span class="quote-badge"><img class="quote-mark" src="https://ramez961.github.io/khalik-fahem/assets/quote-mark.svg" alt="" aria-hidden="true" loading="lazy" decoding="async"></span>
+                <span class="quote-badge"><span class="quote-mark" aria-hidden="true">“</span></span>
                 <blockquote>اليوم كان أول يوم لي في الشركة الجديدة.</blockquote>
                 <div class="client"><img class="client-photo" src="assets/testimonials/04-qosay.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><div class="client-details"><strong>Qosay Alhamed</strong><span class="client-result">وظيفة جديدة بعد قرابة ٣ أشهر في المجتمع</span></div></div>
               </article>
               <article class="card" role="group" aria-roledescription="شريحة" aria-label="٥ من ١٠">
-                <span class="quote-badge"><img class="quote-mark" src="https://ramez961.github.io/khalik-fahem/assets/quote-mark.svg" alt="" aria-hidden="true" loading="lazy" decoding="async"></span>
+                <span class="quote-badge"><span class="quote-mark" aria-hidden="true">“</span></span>
                 <blockquote>بعد التقديم جاني ٦ مقابلات في شركات القطاع المالي.</blockquote>
                 <div class="client"><img class="client-photo" src="assets/testimonials/05-musab.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><div class="client-details"><strong>Musab Alharbi</strong><span class="client-result">٦ مقابلات · شركات في القطاع المالي</span></div></div>
               </article>
               <article class="card" role="group" aria-roledescription="شريحة" aria-label="٦ من ١٠">
-                <span class="quote-badge"><img class="quote-mark" src="https://ramez961.github.io/khalik-fahem/assets/quote-mark.svg" alt="" aria-hidden="true" loading="lazy" decoding="async"></span>
+                <span class="quote-badge"><span class="quote-mark" aria-hidden="true">“</span></span>
                 <blockquote>في اليوم التالي جاني ٣ اتصالات لمقابلات، وتم ترشيحي مبدئيًا لمنصب مدير تجربة المريض.</blockquote>
                 <div class="client"><img class="client-photo" src="assets/testimonials/06-sawsan.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><div class="client-details"><strong>سوسن الغامدي</strong><span class="client-result">ترشيح مبدئي · مدير تجربة المريض</span></div></div>
               </article>
               <article class="card" role="group" aria-roledescription="شريحة" aria-label="٧ من ١٠">
-                <span class="quote-badge"><img class="quote-mark" src="https://ramez961.github.io/khalik-fahem/assets/quote-mark.svg" alt="" aria-hidden="true" loading="lazy" decoding="async"></span>
+                <span class="quote-badge"><span class="quote-mark" aria-hidden="true">“</span></span>
                 <blockquote>لأول مرة في مسيرتي المهنية، عندي ٣ مقابلات وظيفية في يوم واحد.</blockquote>
                 <div class="client"><img class="client-photo" src="assets/testimonials/07-budoor.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><div class="client-details"><strong>Budoor Alhulaibi</strong><span class="client-result">٣ مقابلات في يوم واحد</span></div></div>
               </article>
               <article class="card" role="group" aria-roledescription="شريحة" aria-label="٨ من ١٠">
-                <span class="quote-badge"><img class="quote-mark" src="https://ramez961.github.io/khalik-fahem/assets/quote-mark.svg" alt="" aria-hidden="true" loading="lazy" decoding="async"></span>
+                <span class="quote-badge"><span class="quote-mark" aria-hidden="true">“</span></span>
                 <blockquote>تم التواصل معي عبر لينكدإن بخصوص فرصة وظيفية وإجراء مقابلة عمل.</blockquote>
                 <div class="client"><img class="client-photo" src="assets/testimonials/08-mohammad.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><div class="client-details"><strong>Mohammad Alrasheed</strong><span class="client-result">تواصل وظيفي ومقابلة عبر لينكدإن</span></div></div>
               </article>
               <article class="card" role="group" aria-roledescription="شريحة" aria-label="٩ من ١٠">
-                <span class="quote-badge"><img class="quote-mark" src="https://ramez961.github.io/khalik-fahem/assets/quote-mark.svg" alt="" aria-hidden="true" loading="lazy" decoding="async"></span>
+                <span class="quote-badge"><span class="quote-mark" aria-hidden="true">“</span></span>
                 <blockquote>سويت مقابلة في إحدى شركات صندوق الاستثمارات العامة بعد تحديث سيرتي الذاتية من أول ورشة.</blockquote>
                 <div class="client"><img class="client-photo" src="assets/testimonials/09-saleh.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><div class="client-details"><strong>Saleh Hushayyish</strong><span class="client-result">مقابلة في شركة تابعة لصندوق الاستثمارات العامة</span></div></div>
               </article>
               <article class="card" role="group" aria-roledescription="شريحة" aria-label="١٠ من ١٠">
-                <span class="quote-badge"><img class="quote-mark" src="https://ramez961.github.io/khalik-fahem/assets/quote-mark.svg" alt="" aria-hidden="true" loading="lazy" decoding="async"></span>
+                <span class="quote-badge"><span class="quote-mark" aria-hidden="true">“</span></span>
                 <blockquote>تواصلت معي شركتان كبيرتان هذا الأسبوع بخصوص مناصب إدارية.</blockquote>
                 <div class="client"><img class="client-photo" src="assets/testimonials/10-hussam.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><div class="client-details"><strong>Hussam Raggam</strong><span class="client-result">تواصل من شركتين لمناصب إدارية</span></div></div>
               </article>
