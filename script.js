@@ -13,9 +13,10 @@ if (testimonialCarousel) {
   const track = testimonialCarousel.querySelector('.cards');
   const previousButton = testimonialCarousel.querySelector('[data-carousel-prev]');
   const nextButton = testimonialCarousel.querySelector('[data-carousel-next]');
+  const toggleButton = testimonialCarousel.querySelector('[data-carousel-toggle]');
   const count = testimonialCarousel.querySelector('.carousel-count');
   const cards = track ? Array.from(track.children) : [];
-  const requiredElements = [viewport, track, previousButton, nextButton, count];
+  const requiredElements = [viewport, track, previousButton, nextButton, toggleButton, count];
 
   if (requiredElements.every(Boolean) && cards.length > 1) {
     const mobileLayout = window.matchMedia('(max-width: 700px)');
@@ -27,6 +28,7 @@ if (testimonialCarousel) {
     let lastFrame = 0;
     let hoverPaused = false;
     let focusPaused = false;
+    let userPaused = false;
     let dragging = false;
     let manualNavigating = false;
     let navigationToken = 0;
@@ -76,7 +78,12 @@ if (testimonialCarousel) {
       applyOffset();
     };
 
-    const canMove = () => !hoverPaused && !focusPaused && !dragging && !manualNavigating && performance.now() >= navigationHoldUntil && !document.hidden && !reducedMotion.matches;
+    const canMove = () => !userPaused && !hoverPaused && !focusPaused && !dragging && !manualNavigating && performance.now() >= navigationHoldUntil && !document.hidden && !reducedMotion.matches;
+
+    const updateToggle = () => {
+      toggleButton.setAttribute('aria-pressed', String(userPaused));
+      toggleButton.textContent = userPaused ? 'تشغيل الحركة' : 'إيقاف الحركة';
+    };
 
     const animate = (timestamp) => {
       if (lastFrame === 0) {
@@ -162,6 +169,10 @@ if (testimonialCarousel) {
     nextButton.disabled = false;
     previousButton.addEventListener('click', () => navigateByCard(-1));
     nextButton.addEventListener('click', () => navigateByCard(1));
+    toggleButton.addEventListener('click', () => {
+      userPaused = !userPaused;
+      updateToggle();
+    });
 
     testimonialCarousel.addEventListener('keydown', (event) => {
       if (event.key === 'ArrowLeft') {
@@ -227,6 +238,7 @@ if (testimonialCarousel) {
     }
 
     measure();
+    updateToggle();
     window.requestAnimationFrame(animate);
   }
 }

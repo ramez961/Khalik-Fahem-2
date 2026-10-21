@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#b2ce38">
   <meta name="description" content="انضم لمجتمع خلك فاهم، بخطة من أربع مراحل للتطوير المهني.">
+  <link rel="canonical" href="https://ramez961.github.io/Khalik-Fahem-2/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="خلك فاهم — خطوتك المهنية القادمة">
+  <meta property="og:description" content="انضم لمجتمع خلك فاهم، بخطة من أربع مراحل للتطوير المهني.">
+  <meta property="og:url" content="https://ramez961.github.io/Khalik-Fahem-2/">
   <title>خلك فاهم — خطوتك المهنية القادمة</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -163,7 +168,10 @@
     }
 
   
-/* Speaker images in member testimonials */
+/* Carousel pause control and speaker images */
+.carousel-toggle { min-height: 42px; padding: 0 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--white); color: var(--ink); cursor: pointer; font: 700 12px var(--font); }
+.carousel-toggle:hover { border-color: var(--ink); }
+.carousel-toggle:focus-visible { outline: 3px solid var(--lime); outline-offset: 3px; }
 .client { display: flex; align-items: center; gap: 12px; }
 .client-photo, .client-photo-fallback { flex: 0 0 48px; width: 48px; height: 48px; border: 2px solid #fff; border-radius: 50%; box-shadow: 0 2px 8px rgba(0, 28, 21, .14); }
 .client-photo { display: block; object-fit: cover; object-position: center 30%; }
@@ -218,7 +226,7 @@
         <div class="section-intro">
           <span class="section-kicker">رحلتك المهنية</span>
           <h2>خطوات واضحة، تمشيها مع ناس يشبهونك</h2>
-          <p>هذا الشكل يشرح مراحل البرنامج في لمحة. أسماء المراحل ونصوصها أدناه أمثلة بصرية مؤقتة.</p>
+          <p>تعرّف على المراحل الأربع التي تساعدك على التحرك نحو هدفك المهني بثقة ووضوح.</p>
         </div>
         <div class="step-grid">
           <article class="step-card"><span class="step-number">١</span><h3>اكتشف اتجاهك</h3><p>حدّد هدفك المهني والفرصة التي تبحث عنها.</p></article>
@@ -228,8 +236,6 @@
         </div>
       </div>
     </section>
-
-ion>
 
     <section class="reviews" id="feedback">
       <div class="wrap">
@@ -295,8 +301,9 @@ ion>
           </div>
           <div class="carousel-controls">
             <button class="carousel-arrow" type="button" data-carousel-prev aria-label="عرض الاقتباس السابق"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 5 7 7-7 7"/></svg></button>
-            <span class="carousel-count" aria-live="polite">١–٣ من ١٠</span>
+            <span class="carousel-count" aria-live="off">١–٣ من ١٠</span>
             <button class="carousel-arrow" type="button" data-carousel-next aria-label="عرض الاقتباسات التالية"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 5-7 7 7 7"/></svg></button>
+            <button class="carousel-toggle" type="button" data-carousel-toggle aria-pressed="false">إيقاف الحركة</button>
           </div>
         </div>
       </div>
@@ -306,7 +313,7 @@ ion>
         <div class="offer-copy">
           <span class="section-kicker" style="color:var(--lime)">خطوتك التالية</span>
           <h2>مكانك بينهم جاهز، ناقص قرارك</h2>
-          <p>جرّب المجتمع وتعرّف على الخطة قبل الاشتراك. إذا كان مناسبًا لك، استمر؛ وإذا لا، تقدر تلغي في أي وقت.</p>
+          <p>ابدأ تجربتك المجانية وتعرّف على الخطة والمجتمع خلال ٧ أيام.</p>
           <div class="offer-points"><span>مجتمع مهني داعم</span><span>خطة من ٤ مراحل</span><span>إلغاء في أي وقت</span></div>
         </div>
         <div class="price-card">
@@ -319,7 +326,6 @@ ion>
 
   <footer class="wrap footer">
     <span>© <span id="year"></span> خلك فاهم</span>
-    <div class="footer-links"><a href="#offer">سياسة الخصوصية</a><a href="#offer">الشروط والأحكام</a></div>
   </footer>
   <script src="script.js" defer></script>
 </body>
