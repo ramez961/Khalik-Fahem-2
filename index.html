@@ -146,11 +146,6 @@
     }
   
     .video-poster { cursor: default; }
-    .video-cover { position: relative; z-index: 0; }
-    .video-player { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; }
-    .video-play-button { padding: 0; cursor: pointer; }
-    .video-play-button:focus-visible { outline: 3px solid var(--lime); outline-offset: 5px; }
-    .video-play-button[hidden] { display: none; }
     .video-embed { position: absolute; inset: 0; z-index: 1; display: block; width: 100%; height: 100%; border: 0; background: #000; }
     ;
 
@@ -201,11 +196,7 @@
       <div class="wrap hero-grid">
         <div class="video-card">
           <div class="video-poster">
-            <img src="https://ramez961.github.io/khalik-fahem/assets/video-cover.webp" alt="أحمد القحطاني — فيديو تعريفي بخلك فاهم" class="video-cover">
-            <div class="video-player" data-youtube-url="https://youtu.be/nRPsBCXWV8k" role="group" aria-label="فيديو خلك فاهم"></div>
-            <button class="play video-play-button" type="button" aria-label="شغّل الفيديو">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13L18 12 8 5.5Z" fill="currentColor"/></svg>
-            </button>
+            <iframe class="video-embed" title="فيديو خلك فاهم" src="https://www.youtube-nocookie.com/embed/nRPsBCXWV8k?autoplay=1&amp;mute=1&amp;controls=1&amp;fs=1&amp;rel=0&amp;playsinline=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
           </div>
           <div class="video-caption"><span>ابدأ بالتعرّف على المجتمع</span><small>فيديو تعريفي · ٤:١٨</small></div>
         </div>
