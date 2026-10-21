@@ -89,13 +89,9 @@
     .offer-points span::before { content: '✓'; margin-inline-end: 7px; color: var(--lime); font-weight: 800; }
     .price-card { padding: 29px; border-radius: 18px; background: #fff; color: var(--ink); box-shadow: 0 20px 70px rgba(0,0,0,.25); }
     .price-card .trial { display: inline-block; padding: 6px 10px; border-radius: 999px; background: #eef4cc; color: #39470b; font-size: 11px; font-weight: 800; }
-    .price { display: flex; align-items: baseline; gap: 7px; margin: 17px 0 4px; }
-    .price strong { font: 800 42px/1 'IBM Plex Sans Arabic', var(--font); letter-spacing: -.04em; }
-    .price span { color: var(--muted); font-size: 13px; }
-    .price-sub { margin: 0 0 19px; color: var(--muted); font-size: 12px; }
     .price-card .button { width: 100%; min-height: 54px; background: var(--lime); color: var(--ink); border-color: var(--lime); }
+    .price-card .trial + .button { margin-top: 24px; }
     .price-card .button:hover { background: #c3dd49; }
-    .price-note { margin: 11px 0 0; color: var(--muted); text-align: center; font-size: 10px; }
     .footer { display: flex; justify-content: space-between; gap: 18px; padding: 23px 0; color: #6c6e65; font-size: 11px; }
     .footer-links { display: flex; gap: 18px; }
     :focus-visible { outline: 3px solid #546811; outline-offset: 4px; }
@@ -315,10 +311,7 @@ ion>
         </div>
         <div class="price-card">
           <span class="trial">٧ أيام تجربة مجانية</span>
-          <div class="price"><strong>$99</strong><span>/ شهريًا</span></div>
-          <p class="price-sub">بعد انتهاء الفترة المجانية</p>
-          <span class="button" aria-disabled="true">أضف رابط الانضمام قبل النشر</span>
-          <p class="price-note">التسجيل المباشر يضاف هنا عند تزويدي برابط الانضمام.</p>
+          <a class="button" href="https://www.skool.com/kfahm-7175/about?ref=1b3695ba29874bd7a223027cb9b5b792">ابدأ تجربتك المجانية</a>
         </div>
       </div>
     </section>
