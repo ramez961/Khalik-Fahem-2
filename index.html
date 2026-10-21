@@ -36,7 +36,7 @@
     .header { background: #fff; border-bottom: 1px solid var(--line); }
     .nav { min-height: 82px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
     .brand { display: flex; align-items: center; gap: 12px; font-size: 19px; font-weight: 800; white-space: nowrap; }
-    .brand-mark { display: grid; width: 48px; height: 48px; place-items: center; border-radius: 14px 14px 14px 3px; background: var(--lime); color: var(--ink); font-family: 'IBM Plex Sans Arabic', var(--font); font-size: 23px; font-weight: 800; line-height: 1; }
+    .brand-mark { display: block; width: 48px; height: 48px; object-fit: contain; }
     .nav-links { display: flex; align-items: center; gap: 30px; color: #4b4d45; font-size: 14px; font-weight: 600; }
     .nav-links a:hover { color: #536416; }
     .nav-cta, .button { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 0 22px; border: 1px solid var(--ink); border-radius: 8px; background: var(--ink); color: #fff; font: 700 14px var(--font); transition: transform .18s ease, background .18s ease; }
@@ -111,7 +111,7 @@
       .wrap { width: min(100% - 32px, 540px); }
       .nav { min-height: 70px; }
       .brand { font-size: 16px; }
-      .brand-mark { width: 42px; height: 42px; font-size: 21px; }
+      .brand-mark { width: 42px; height: 42px; }
       .nav-links { display: none; }
       .nav-cta { min-height: 42px; padding-inline: 15px; font-size: 12px; }
       .hero { padding: 45px 0 48px; }
@@ -185,7 +185,7 @@
 <body><header class="header">
     <div class="wrap nav">
       <a class="brand" href="#top" aria-label="خلك فاهم">
-        <span class="brand-mark" aria-hidden="true">خ</span>
+      <img class="brand-mark" src="assets/khalik-fahem-mark.svg" alt="">
         <span>خلك فاهم</span>
       </a>
       <a class="nav-cta" href="#offer">ابدأ رحلتك <span aria-hidden="true">←</span></a>
